@@ -1,0 +1,110 @@
+SELECT
+  FORMAT_DATE('%Y-%m', `Order Date`) AS month,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY month
+ORDER BY month;
+
+
+SELECT
+  Region,
+  Category,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit,
+  ROUND(SUM(Profit) / NULLIF(SUM(Sales), 0) * 100, 2) AS profit_margin_pct
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY Region, Category
+ORDER BY total_profit DESC;
+
+
+SELECT
+  `Product Name`,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY `Product Name`
+ORDER BY total_sales DESC
+LIMIT 10;
+
+
+SELECT
+  `Product Name`,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY `Product Name`
+HAVING SUM(Profit) < 0
+ORDER BY total_profit ASC;
+
+
+SELECT
+  `Ship Mode`,
+  ROUND(AVG(`Shipping Cost`), 2) AS avg_shipping_cost,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY `Ship Mode`
+ORDER BY avg_shipping_cost DESC;
+
+
+SELECT
+  `Customer Name`,
+  COUNT(DISTINCT `Order ID`) AS total_orders,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY `Customer Name`
+ORDER BY total_sales DESC
+LIMIT 10;
+
+
+SELECT
+  Segment,
+  FORMAT_DATE('%Y-%m', `Order Date`) AS month,
+  ROUND(SUM(Sales), 2) AS total_sales
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY Segment, month
+ORDER BY Segment, month;
+
+
+SELECT
+  ROUND(Discount, 2) AS discount_rate,
+  ROUND(AVG(Profit), 2) AS avg_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY discount_rate
+ORDER BY discount_rate;
+
+
+SELECT
+  Region,
+  `Ship Mode`,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY Region, `Ship Mode`
+ORDER BY total_profit DESC;
+
+
+SELECT
+  EXTRACT(YEAR FROM `Order Date`) AS year,
+  ROUND(SUM(Sales), 2) AS total_sales,
+  ROUND(SUM(Profit), 2) AS total_profit
+FROM
+  `cloud-integration-468904.superstore_dataset.cleaned_superstore`
+GROUP BY year
+ORDER BY year;
+
+
+
+
+
